@@ -1,0 +1,15 @@
+stages:
+  - test
+
+variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1" # Optional, disables telemetry for dotnet commands
+
+unit_test:
+  stage: test
+  image: mcr.microsoft.com/dotnet/sdk:7.0 # Replace with your required .NET SDK version
+  script:
+    - echo "Running .NET unit tests..."
+    - dotnet restore
+    - dotnet test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
